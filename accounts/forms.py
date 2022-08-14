@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from .models import User
 
 
+# User model customize
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(
@@ -44,3 +45,31 @@ class UserChangeForm(forms.ModelForm):
             'is_active',
             'is_admin'
         )
+
+
+# User authentication
+class UserRegisterForm(forms.Form):
+    phone_number = forms.CharField(max_length=11, widget=forms.TextInput)
+    email = forms.EmailField(max_length=255, widget=forms.EmailInput)
+    fullname = forms.CharField(max_length=255, widget=forms.TextInput)
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        user = User.objects.filter(phone_number=phone_number)
+        if user:
+            raise ValidationError('This phone number already exists!')
+        return phone_number
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = User.objects.filter(email=email)
+        if user:
+            raise ValidationError('This email address already exists')
+        return email
+
+
+class UserLoginForm(forms.Form):
+    phone_number = forms.CharField(max_length=11)
+    password = forms.CharField(widget=forms.PasswordInput)
