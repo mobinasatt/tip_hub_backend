@@ -49,11 +49,21 @@ class UserChangeForm(forms.ModelForm):
 
 # User authentication
 class UserRegisterForm(forms.Form):
-    phone_number = forms.CharField(max_length=11, widget=forms.TextInput)
-    email = forms.EmailField(max_length=255, widget=forms.EmailInput)
-    fullname = forms.CharField(max_length=255, widget=forms.TextInput)
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
+    phone_number = forms.CharField(max_length=11, widget=forms.TextInput(
+        attrs={'class': 'email-input', 'placeholder': 'شماره تماس'}
+    ))
+    email = forms.EmailField(max_length=255, widget=forms.EmailInput(
+        attrs={'class': 'email-input', 'placeholder': 'پست الکترونیکی'}
+    ))
+    fullname = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'email-input', 'placeholder': 'نام کامل'}
+    ))
+    password1 = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'password-input', 'placeholder': 'گزرواژه'}
+    ))
+    password2 = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'password-input', 'placeholder': 'تایید گزرواژه'}
+    ))
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
@@ -71,5 +81,9 @@ class UserRegisterForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-    phone_number = forms.CharField(max_length=11)
-    password = forms.CharField(widget=forms.PasswordInput)
+    phone_number = forms.CharField(max_length=11, widget=forms.TextInput(
+        attrs={'class': 'email-input', 'placeholder': 'شماره تماس'}
+    ))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'password-input', 'placeholder': 'گزرواژه'}
+    ))
