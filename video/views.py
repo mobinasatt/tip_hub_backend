@@ -8,6 +8,7 @@ from .models import Video
 class VideoDetailView(View):
     def get(self, request, slug):
         video = get_object_or_404(Video, slug=slug)
+        video.video_view()
 
         context = {
             'video': video

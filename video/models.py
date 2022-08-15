@@ -28,7 +28,7 @@ class Video(models.Model):
     slug = models.SlugField(unique=True, null=True, blank=True, allow_unicode=True)
     category = models.ManyToManyField(Category, related_name='cvideos')
     about_video = models.TextField()
-    views = models.IntegerField()
+    views = models.PositiveBigIntegerField(default=1)
     video = models.FileField(upload_to='videos/')
     image = models.ImageField(upload_to='videos/images/')
     time = models.IntegerField(default=1)
@@ -37,3 +37,7 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title[:20]
+
+    def video_view(self):
+        self.views += 1
+        self.save()
