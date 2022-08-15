@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ video.title }}{% endblock %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
                             <div class="video-player-box">
                                 <div class="video-icon">
                                     <div class="btn video-btn" onclick="playvideo()" id="videobtn">
-                                        <img src="{{ video.image.url }}" alt="">
+                                        <img src="{% static 'image/play-video-btn.png' %}" alt="">
                                     </div>
                                 </div>
                                 <div class="video">
@@ -36,7 +36,7 @@
                             </div>
                             <!-- end video -->
                             <!-- title -->
-                            <h3 class="video-title my-3">{{ video.description }}</h3>
+                            <h3 class="video-title my-3">{{ video.title }}</h3>
                             <div class="d-flex align-items-center justify-content-between border-bottom pb-3">
                                 <p class="color78">{{ video.created }}</p>
                                 <div class="d-flex align-items-center view-like">
@@ -56,7 +56,7 @@
                             <!-- description -->
                             <div class="border-bottom pb-3">
                                 <h4 class="my-3">درباره فیلم</h4>
-                                <p class="color78">{{ video.about_video }}</p>
+                                <p class="color78">{{ video.about_video|safe }}</p>
 
                                 <div class="labels">
                                     <h4 class="my-3">برچسب ها</h4>
@@ -205,7 +205,11 @@
                                 {% endif %}
                                 <p class="user-name pr-2">{{ video.master.fullname }}</p>
                             </div>
-                            <p class="color78 teacher-description py-3">{{ video.master.bio }}</p>
+                            {% if video.master.bio %}
+                                <p class="color78 teacher-description py-3">{{ video.master.bio|safe }}</p>
+                            {% else %}
+                                <p class="color78 teacher-description py-3">درباره استاد خالی است</p>
+                            {% endif %}
 
                                 <div class="teacher-social-media d-flex align-items-center justify-content-center flex-wrap">
                                     <a href=""> <i class="fa fa-instagram"></i></a>

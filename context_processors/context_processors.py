@@ -2,7 +2,7 @@ from video.models import Category, Video
 
 
 def categories(request):
-    category = Category.objects.filter(is_parent=False)
+    category = Category.objects.filter(is_child=False)
     return {"categories": category}
 
 
