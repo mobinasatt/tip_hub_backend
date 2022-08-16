@@ -51,7 +51,7 @@
                              aria-labelledby="dropdownMenuButton">
 
                             {% if request.user.is_authenticated %}
-                                <a class="" href="user-panel.html"> پروفایل</a>
+                                <a class="" href="{% url 'accounts:profile' request.user.id %}"> پروفایل</a>
                                 <a class="" href="#"> مورد علاقه ها</a>
                                 <a class="" href="{% url 'accounts:logout' %}"> خروج</a>
                             {% else %}

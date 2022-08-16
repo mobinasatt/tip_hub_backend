@@ -15,7 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     bio = RichTextField(null=True, blank=True, verbose_name=_('درباره شما'))
     image = models.ImageField(upload_to='user/images/', null=True, blank=True,
                               verbose_name=_('عکس پروفایل'))
-    age = models.IntegerField(default=True, verbose_name=_('سن'))
+    age = models.IntegerField(default=1, verbose_name=_('سن'), null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name=_('فعال'))
     is_admin = models.BooleanField(default=False, verbose_name=_('مدیر سایت'))
 

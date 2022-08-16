@@ -15,19 +15,19 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_active', 'is_admin')
 
     fieldsets = (
-		('Main', {'fields': (
+        ('Main', {'fields': (
             'email', 'phone_number', 'fullname', 'bio', 'age', 'image', 'password'
         )}),
-		('Permissions', {'fields': (
+        ('Permissions', {'fields': (
             'is_active', 'is_admin', 'is_superuser', 'groups', 'user_permissions')}
-        ),
-	)
+         ),
+    )
 
     add_fieldsets = (
-		(None, {'fields':(
+        (None, {'fields': (
             'phone_number', 'email', 'fullname', 'password1', 'password2')}
-        ),
-	)
+         ),
+    )
 
     search_fields = ('phone_number', 'email', 'fullname')
     ordering = ('email',)
@@ -39,5 +39,6 @@ class UserAdmin(BaseUserAdmin):
         if not is_superuser:
             form.base_fields['is_superuser'].disable = True
         return form
+
 
 admin.site.register(User, UserAdmin)

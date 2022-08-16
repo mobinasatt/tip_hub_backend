@@ -1,6 +1,10 @@
+# Django packages
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
+# Third party apps
+from ckeditor.widgets import CKEditorWidget
+# Local apps
 from .models import User
 
 
@@ -32,7 +36,7 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(
-        help_text = "You can change password using <a href=\"../password/\">this form</a>"
+        help_text="You can change password using <a href=\"../password/\">this form</a>"
     )
 
     class Meta:
@@ -89,3 +93,19 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'password-input', 'placeholder': 'گزرواژه'}
     ))
+
+
+class UserEditProfileForm(forms.Form):
+    phone_number = forms.CharField(max_length=11, widget=forms.TextInput(
+        attrs={'class': 'email-input', 'placeholder': 'شماره تماس'}
+    ))
+    email = forms.EmailField(max_length=255, widget=forms.EmailInput(
+        attrs={'class': 'email-input', 'placeholder': 'پست الکترونیکی'}
+    ))
+    fullname = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'email-input', 'placeholder': 'نام کامل'}
+    ))
+    age = forms.IntegerField(widget=forms.NumberInput(
+        attrs={'class': 'email-input', 'placeholder': 'سن'}
+    ))
+    bio = forms.CharField(widget=CKEditorWidget())
