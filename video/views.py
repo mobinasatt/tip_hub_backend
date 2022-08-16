@@ -5,6 +5,14 @@ from django.views import View
 from .models import Video
 
 
+class AllVideoView(View):
+    def get(self, request):
+        videos = Video.objects.all().order_by('-created')
+
+        context = {'videos': videos}
+        return render(request, 'video/all_videos.html', context)
+
+
 class VideoDetailView(View):
     def get(self, request, slug):
         video = get_object_or_404(Video, slug=slug)

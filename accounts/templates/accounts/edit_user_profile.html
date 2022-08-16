@@ -17,7 +17,11 @@
                                 <div class="user-panel-box">
 
                                     <div class="user-panel-profile">
-                                        <img src="{{ request.user.image.url }}" alt="">
+                                        {% if request.user.image %}
+                                            <img src="{{ request.user.image.url }}" alt="">
+                                        {% else %}
+                                            <img src="{% static 'image/sutdent-prof.png' %}" alt="">
+                                        {% endif %}
                                     </div>
                                     <div class="change-profile-btn">
                                         <button class="btn custom-btn">تغییر عکس پروفایل</button>
