@@ -108,4 +108,6 @@ class UserEditProfileForm(forms.Form):
     age = forms.IntegerField(widget=forms.NumberInput(
         attrs={'class': 'email-input', 'placeholder': 'سن'}
     ))
-    bio = forms.CharField(widget=CKEditorWidget())
+    bio = forms.CharField(widget=CKEditorWidget(
+        attrs={'class': 'form-control'}
+    ))

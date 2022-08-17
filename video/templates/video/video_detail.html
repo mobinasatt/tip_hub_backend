@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ video.title }}{% endblock %}
 
 {% block content %}
 
@@ -21,27 +21,27 @@
                                 </div>
                                 <div class="video">
                                     <video width="100%" id="myVideo" autoplay>
-                                        <source src="{{ object.video.url }}" type="video/mp4">
+                                        <source src="{{ video.video.url }}" type="video/mp4">
                                     </video>
-                                    <img src="{{ object.image.url }}" width="100%" height="100%"
+                                    <img src="{{ video.image.url }}" width="100%" height="100%"
                                          class="position-absolute video-poster" alt="">
 
                                     <div class="video-overlay"></div>
                                     <div class="video-description px-2 text-white">
 
-                                        <p> {{ object.time }} دقیقه</p>
+                                        <p> {{ vodeo.time }} دقیقه</p>
                                     </div>
                                     <h5 class="close-btn" onclick="stopPlayer()">X</h5>
                                 </div>
                             </div>
                             <!-- end video -->
                             <!-- title -->
-                            <h3 class="video-title my-3">{{ object.title }}</h3>
+                            <h3 class="video-title my-3">{{ video.title }}</h3>
                             <div class="d-flex align-items-center justify-content-between border-bottom pb-3">
-                                <p class="color78">{{ object.created }}</p>
+                                <p class="color78">{{ video.created }}</p>
                                 <div class="d-flex align-items-center view-like">
                                     <div class="mx-3">
-                                        <span>{{ object.views }}</span>
+                                        <span>{{ video.views }}</span>
                                         <i class="fa fa-eye"></i>
                                     </div>
                                     <div>
@@ -56,7 +56,7 @@
                             <!-- description -->
                             <div class="border-bottom pb-3">
                                 <h4 class="my-3">درباره فیلم</h4>
-                                <p class="color78">{{ object.about_video|safe }}</p>
+                                <p class="color78">{{ video.about_video|safe }}</p>
 
                                 <div class="labels">
                                     <h4 class="my-3">برچسب ها</h4>
@@ -80,7 +80,7 @@
                                 </div>
 
                                 <!-- comment -->
-                                {% for comment in object.video_comments.all %}
+                                {% for comment in video.video_comments.all %}
                                     {% if comment.parent == None %}
                                         <div class="comment my-3 p-2">
                                             <div class=" d-flex align-items-center justify-content-between">
@@ -99,14 +99,13 @@
                                             </div>
                                             <p class="px-4 py-2 comment-text text-justify">{{ comment.body }}</p>
 
-                                            <div class="d-flex align-items-center justify-content-end reply"
-                                                 type='button'>
-                                                <i class="fa fa-reply"></i>
-                                                <button onclick="set_value({{ comment.id }})" class="btn custom-btn">
-                                                    پاسخ به
-                                                    این نظر
-                                                </button>
-                                            </div>
+                                            {#                                        <div class="d-flex align-items-center justify-content-end reply">#}
+                                            {#                                            <i class="fa fa-reply"></i>#}
+                                            <button onclick="set_value({{ comment.id }})" class="btn custom-btn">
+                                                پاسخ به
+                                                این نظر
+                                            </button>
+                                            {#                                        </div>#}
                                         </div>
                                         <!--Comment reply-->
                                         {% for reply in comment.children.all %}
@@ -123,7 +122,6 @@
                                                         {% endif %}
                                                         <p class="user-name pr-2">{{ reply.user.fullname }}</p>
                                                     </div>
-
                                                     <p class="comment-date-time">{{ reply.created|timesince }}</p>
                                                 </div>
                                                 <p class="px-4 py-2 comment-text text-justify">{{ reply.body }}</p>
@@ -132,28 +130,25 @@
                                     {% endif %}
                                 {% endfor %}
                                 {% if request.user.is_authenticated %}
-                                    <form method="post" novalidate>
+                                    <form id="comment" action="#" method="post">
                                         {% csrf_token %}
                                         <input id="parent_id" type="hidden" name="parent_id" value="">
-                                        <fieldset>
-                                        <textarea name="body" rows="6" id="body" placeholder="Type your comment"
+
+                                        <textarea name="body" rows="6" id="body" placeholder="متن نظر خود را وارد کنید"
                                                   required="" class="form-control"></textarea>
-                                        </fieldset>
 
                                         <div class="d-flex align-items-center justify-content-end pt-3">
-                                            <fieldset>
                                                 <button type="submit" id="form-submit" class="btn custom-btn">ارسال
                                                     نظر
                                                 </button>
-                                            </fieldset>
                                         </div>
                                     </form>
                                 {% else %}
-                                    <p class="btn btn-danger">Firstly login to site</p>
+                                    <a href="{% url 'accounts:login' %}" class="btn btn-danger">برای قرار دادن نظر خود
+                                        اول باید وارد سایت شوید</a>
                                 {% endif %}
                                 <!-- end comment -->
                                 <!-- end comment child -->
-
                             </div>
                             <!-- end comments -->
 
