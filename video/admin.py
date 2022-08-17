@@ -3,7 +3,7 @@ from django.contrib import admin
 # Third party apps
 from mptt.admin import DraggableMPTTAdmin
 # Local apps
-from .models import Video, Category
+from .models import Video, Category, Comment
 
 
 @admin.register(Video)
@@ -26,4 +26,16 @@ admin.site.register(
         'indented_title',
     ),
     prepopulated_field={'slug': ('name',)}
+)
+
+admin.site.register(
+    Comment,
+    DraggableMPTTAdmin,
+    list_display=(
+        'tree_actions',
+        'indented_title',
+    ),
+    list_display_links=(
+        'indented_title',
+    ),
 )

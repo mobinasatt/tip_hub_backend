@@ -21,7 +21,7 @@
                         <div class="col-md-6 col-lg-4 my-2">
                             <div class="custom-bg">
                                 <div class="video-card">
-                                    <a href="{% url 'video:detail' video.slug %}" class="position-relative d-block ">
+                                    <a href="{% url 'video:detail' video.id video.slug %}" class="position-relative d-block ">
                                         <img src="{{ video.image.url }}" alt=""
                                              class="img-fluid w-100 h-100">
                                         <div class="video-play-btn">
@@ -29,7 +29,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between video-category-time">
                                             <h6 class="">{{ video.category.first }}</h6>
-                                            <span class="vid-time">5:25</span>
+                                            <span class="vid-time">{{ video.time }} دقیقه</span>
                                         </div>
                                         <div class="video-card-details">
                                             <div>
@@ -49,7 +49,7 @@
                                     </a>
 
                                 </div>
-                                <a href="{% url 'video:detail' video.slug %}">
+                                <a href="{% url 'video:detail' video.id video.slug %}">
                                     <h5 class="video-card-title m-2">{{ video.title }}</h5>
                                 </a>
                                 <div class="my-3 pb-3 mx-2">
@@ -76,7 +76,7 @@
                         <div class="col-md-6 col-lg-4 my-2">
                             <div class="custom-bg">
                                 <div class="video-card">
-                                    <a href="{% url 'video:detail' video.slug %}" class="position-relative d-block ">
+                                    <a href="{% url 'video:detail' video.id video.slug %}" class="position-relative d-block ">
                                         <img src="{{ video.image.url }}" alt="" class="img-fluid w-100 h-100">
                                         <div class="video-play-btn">
                                             <i class="fa fa-play"></i>
@@ -103,7 +103,7 @@
                                     </a>
 
                                 </div>
-                                <a href="{% url 'video:detail' video.slug %}">
+                                <a href="{% url 'video:detail' video.id video.slug %}">
                                     <h5 class="video-card-title m-2">{{ video.title }}</h5>
                                 </a>
                                 <div class="my-3 pb-3 mx-2">
