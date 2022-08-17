@@ -7,6 +7,7 @@ from .models import Video, Comment
 
 class ListVideo(generic.ListView):
     model = Video
+    context_object_name = 'videos'
 
 
 def detail_video(request, pk, slug):
@@ -25,3 +26,11 @@ def detail_video(request, pk, slug):
         'video': video
     }
     return render(request, 'video/video_detail.html', context)
+
+
+def search(request):
+    q = request.GET.get("q")
+    videos = Video.objects.filter(title__icontains=q)
+
+    context = {'videos': videos}
+    return render(request, 'video/video_list.html', context)

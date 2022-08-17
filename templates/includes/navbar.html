@@ -13,10 +13,14 @@
                     <a href="{% url 'home:home' %}"><img src="{% static 'image/logo.png' %}" class="logo-img img-fluid"
                                                          alt=""/></a>
                 </div>
-                <div class="nav-search-btn">
-                    <input type="search" placeholder="جستجو">
-                    <i class="fa fa-search"></i>
-                </div>
+                <!-- SEARCH -->
+                <form action="{% url 'video:search' %}" method="GET" class="nav-search-btn">
+                    <input name="q" type="search" placeholder="جستجو">
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                <!-- END SEARCH -->
 
             </div>
             <div class="d-block d-md-flex align-items-center pl-md-4">
