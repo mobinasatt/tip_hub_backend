@@ -1,13 +1,19 @@
 # Django packages
 from django.shortcuts import render, get_object_or_404
-from django.views import generic
+from django.core.paginator import Paginator
 # Local apps
 from .models import Video, Comment
 
 
-class ListVideo(generic.ListView):
-    model = Video
-    context_object_name = 'videos'
+def video_list(request):
+    videos = Video.objects.all()
+    # Pagination
+    page_number = request.GET.get('page')
+    paginator = Paginator(videos, 6)
+    object_list = paginator.get_page(page_number)
+
+    context = {'videos': object_list}
+    return render(request, 'video/video_list.html', context)
 
 
 def detail_video(request, pk, slug):
@@ -31,6 +37,10 @@ def detail_video(request, pk, slug):
 def search(request):
     q = request.GET.get("q")
     videos = Video.objects.filter(title__icontains=q)
+    # Pagination
+    page_number = request.GET.get('page')
+    paginator = Paginator(videos, 6)
+    objects_list = paginator.get_page(page_number)
 
-    context = {'videos': videos}
+    context = {'videos': objects_list}
     return render(request, 'video/video_list.html', context)

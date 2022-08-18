@@ -7,8 +7,8 @@ from video.models import Video
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        video = Video.objects.all().order_by('-updated')
-        most_visit_video = Video.objects.all().order_by('-views')
+        video = Video.objects.all().order_by('-updated')[:6]
+        most_visit_video = Video.objects.all().order_by('-views')[:3]
 
         context = {
             'video': video,

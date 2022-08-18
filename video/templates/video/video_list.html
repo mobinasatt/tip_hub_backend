@@ -19,7 +19,8 @@
                         <div class="col-md-6 col-lg-4 my-2">
                             <div class="custom-bg">
                                 <div class="video-card">
-                                    <a href="{% url 'video:detail' video.id video.slug %}" class="position-relative d-block ">
+                                    <a href="{% url 'video:detail' video.id video.slug %}"
+                                       class="position-relative d-block ">
                                         <img src="{{ video.image.url }}" alt="" class="img-fluid w-100 h-100">
                                         <div class="video-play-btn">
                                             <i class="fa fa-play"></i>
@@ -61,13 +62,29 @@
 
                 <!-- PAGINATION -->
                 <div class="d-flex align-items-center justify-content-center mb-3 pagination">
-                    <a href="" class="mx-1"><i class="fa fa-chevron-right"></i></a>
-                    <a href="" class="active mx-1">1</a>
-                    <a href="" class="mx-1">2</a>
-                    <a href="" class="mx-1">3</a>
-                    <a href="" class="mx-1">4</a>
-                    <a href="" class="mx-1">20</a>
-                    <a href="" class="mx-1"><i class="fa fa-chevron-left"></i></a>
+                    {% if videos.has_other_pages %}
+                        {% if videos.has_previous %}
+                            <a href="?page={{ videos.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                               class="mx-1">
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        {% endif %}
+                        {% for page in videos.paginator.page_range %}
+                            {% if videos.number == page %}
+                                <a href="?page={{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                                   class="active mx-1">{{ page }}</a>
+                            {% else %}
+                                <a href="?page={{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                                   class="mx-1">{{ page }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if videos.has_next %}
+                            <a href="?page={{ videos.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                               class="mx-1">
+                                <i class="fa fa-chevron-left"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
                 </div>
 
             </div>
