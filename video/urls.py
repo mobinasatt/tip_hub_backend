@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:pk>/<slug:slug>/', views.detail_video, name='detail'),
     # Search
     path('search/', views.search, name='search-videos'),
+    # Category
+    path('category/<int:pk>/', views.category_detail, name='category_detail'),
 ]

@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 # Local apps
-from .models import Video, Comment
+from .models import Video, Comment, Category
 
 
 def video_list(request):
@@ -37,6 +37,18 @@ def detail_video(request, pk, slug):
 def search(request):
     q = request.GET.get("q")
     videos = Video.objects.filter(title__icontains=q)
+    # Pagination
+    page_number = request.GET.get('page')
+    paginator = Paginator(videos, 6)
+    objects_list = paginator.get_page(page_number)
+
+    context = {'videos': objects_list}
+    return render(request, 'video/video_list.html', context)
+
+
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    videos = category.cvideos.all()
     # Pagination
     page_number = request.GET.get('page')
     paginator = Paginator(videos, 6)

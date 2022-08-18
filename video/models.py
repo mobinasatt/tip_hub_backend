@@ -65,7 +65,7 @@ class Comment(MPTTModel):
 
     class Meta:
         verbose_name = _('نظرات')
-        verbose_name_plural = _('نظر')
+        verbose_name_plural = _('نظرات')
 
     def __str__(self):
         return self.body[:20]

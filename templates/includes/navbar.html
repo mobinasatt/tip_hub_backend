@@ -24,6 +24,7 @@
 
             </div>
             <div class="d-block d-md-flex align-items-center pl-md-4">
+                <!-- NOTIFICATIONS -->
                 <div class="dropdown notification-box">
                     <div class="position-relative d-none d-md-block " type="button" id="dropdownMenuButton"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,6 +39,7 @@
 
                     </div>
                 </div>
+                <!-- END NOTIFICATIONS -->
 
                 <div class="header-login d-none d-md-block">
                     <div class="notification-box dropdown">
@@ -80,12 +82,12 @@
 <nav class="nav-menu nav-menu-pc  d-none d-md-flex px-4" id="navbar">
     {% for cat in categories %}
         <li id="li-{{ forloop.counter }}" class="mx-3 menu-item">
-            <a href="" class="nav-menu-item">
+            <a href="{% url 'video:category_detail' cat.id %}" class="nav-menu-item">
                 {{ cat.name }}
             </a>
             <ul class="sub-menu">
                 {% for child in cat.children.all %}
-                    <a href="">{{ child.name }}</a>
+                    <a href="{% url 'video:category_detail' child.id %}">{{ child.name }}</a>
                 {% endfor %}
             </ul>
         </li>
