@@ -69,3 +69,19 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.body[:20]
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_likes',
+                             verbose_name='کاربر')
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='video_likes',
+                              verbose_name='ویدئو')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ساخت')
+
+    class Meta:
+        verbose_name = 'لایک'
+        verbose_name_plural = 'لایک ها'
+        ordering = ['-created']
+
+    def __str__(self):
+        return f"{self.user.fullname} - {self.video.title}"

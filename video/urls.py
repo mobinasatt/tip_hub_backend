@@ -11,4 +11,6 @@ urlpatterns = [
     path('search/', views.search, name='search-videos'),
     # Category
     path('category/<int:pk>/', views.category_detail, name='category_detail'),
+    # Likes
+    path('like/<slug:slug>/<int:pk>', views.like, name='like'),
 ]

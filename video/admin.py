@@ -3,10 +3,10 @@ from django.contrib import admin
 # Third party apps
 from mptt.admin import DraggableMPTTAdmin
 # Local apps
-from .models import Video, Category, Comment
+from . import models
 
 
-@admin.register(Video)
+@admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('master', 'views', 'created')
     list_filter = ('master', 'created', 'updated')
@@ -16,7 +16,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(
-    Category,
+    models.Category,
     DraggableMPTTAdmin,
     list_display=(
         'tree_actions',
@@ -29,7 +29,7 @@ admin.site.register(
 )
 
 admin.site.register(
-    Comment,
+    models.Comment,
     DraggableMPTTAdmin,
     list_display=(
         'tree_actions',
@@ -39,3 +39,10 @@ admin.site.register(
         'indented_title',
     ),
 )
+
+
+@admin.register(models.Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'video', 'created')
+    list_filter = ('user', 'created')
+    search_fields = ('user', 'video')

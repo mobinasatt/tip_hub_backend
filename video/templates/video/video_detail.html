@@ -44,14 +44,23 @@
                                         <span>{{ video.views }}</span>
                                         <i class="fa fa-eye"></i>
                                     </div>
+                                    <!-- LIKES -->
                                     <div>
-                                        <span>21</span>
-                                        <i class="fa fa-heart-o" type='button' aria-hidden="true"></i>
-                                        <!-- <i class="fa fa-heart liked" type='button' aria-hidden="true" ></i> -->
+                                        <span id="count">{{ video.video_likes.count }}</span>
+                                        {% if is_liked %}
+                                            <a onclick="like('{{ video.slug }}', '{{ video.id }}')">
+                                                <i id="like" class="fa fa-heart liked" type='button'
+                                                   aria-hidden="true"></i>
+                                            </a>
+                                        {% else %}
+                                            <a onclick="like('{{ video.slug }}', '{{ video.id }}')">
+                                                <i id="like" class="fa fa-heart view-like" type='button'
+                                                   aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
                                     </div>
-
+                                    <!-- END LIKES -->
                                 </div>
-
                             </div>
                             <!-- description -->
                             <div class="border-bottom pb-3">
@@ -72,13 +81,10 @@
 
                             <!-- comments -->
                             <div>
-
-
                                 <div class="py-3">
                                     <span>{{ comments.all.count }}</span>
                                     <span>نظر</span>
                                 </div>
-
                                 <!-- comment -->
                                 {% for comment in video.video_comments.all %}
                                     {% if comment.parent == None %}
@@ -138,9 +144,9 @@
                                                   required="" class="form-control"></textarea>
 
                                         <div class="d-flex align-items-center justify-content-end pt-3">
-                                                <button type="submit" id="form-submit" class="btn custom-btn">ارسال
-                                                    نظر
-                                                </button>
+                                            <button type="submit" id="form-submit" class="btn custom-btn">ارسال
+                                                نظر
+                                            </button>
                                         </div>
                                     </form>
                                 {% else %}
@@ -183,7 +189,6 @@
                             </div>
                         </div>
                     </aside>
-
                     <!-- end side -->
                 </div>
             </div>
