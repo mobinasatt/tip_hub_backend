@@ -8,7 +8,7 @@ from . import models
 
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('master', 'views', 'created')
+    list_display = ('master', 'views', 'jalali_date')
     list_filter = ('master', 'created', 'updated')
     search_fields = ('description', 'about_video')
     raw_id_fields = ('master',)
@@ -43,6 +43,6 @@ admin.site.register(
 
 @admin.register(models.Like)
 class LikeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'video', 'created')
+    list_display = ('user', 'video', 'jalali_date')
     list_filter = ('user', 'created')
     search_fields = ('user', 'video')

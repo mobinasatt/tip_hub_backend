@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'mptt',
     'ckeditor',
     'django_cleanup.apps.CleanupConfig',
+    'extensions',
     # My apps
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',

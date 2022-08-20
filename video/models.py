@@ -6,6 +6,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor.fields import RichTextField
 # Local apps
 from accounts.models import User
+from extensions.utils import jalali_converter
 
 
 class Category(MPTTModel):
@@ -51,6 +52,10 @@ class Video(models.Model):
         self.views += 1
         self.save()
 
+    def jalali_date(self):
+        return jalali_converter(self.created)
+    jalali_date.short_description = 'زمان ساخت'
+
 
 class Comment(MPTTModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments',
@@ -85,3 +90,7 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.fullname} - {self.video.title}"
+
+    def jalali_date(self):
+        return jalali_converter(self.created)
+    jalali_date.short_description = 'زمان ساخت'
